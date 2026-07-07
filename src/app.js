@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === "production") {
 
   // For any route that isn't an API route, serve index.html
   // This lets React Router handle client-side navigation
-  app.get("*", (req, res) => {
+  app.get("(.*)", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 }
