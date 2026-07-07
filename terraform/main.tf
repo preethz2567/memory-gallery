@@ -171,14 +171,22 @@ resource "aws_iam_role_policy" "ec2_s3_policy" {
           "s3:GetObject",
           "s3:DeleteObject"
         ]
-        # Scoped to this bucket only — not arn:aws:s3:::*
         Resource = "arn:aws:s3:::${var.s3_bucket_name}/*"
       },
       {
-        # Allow listing the bucket (needed to check if a key exists)
         Effect   = "Allow"
         Action   = ["s3:ListBucket"]
         Resource = "arn:aws:s3:::${var.s3_bucket_name}"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "logs:DescribeLogStreams"
+        ]
+        Resource = "arn:aws:logs:${var.aws_region}:*:log-group:/memory-gallery/*"
       }
     ]
   })
@@ -210,31 +218,35 @@ resource "aws_instance" "app" {
 
   # User data script runs once when the instance first boots
   # Installs Docker, pulls your image from GHCR, and starts the app
+  
   user_data = <<-EOF
-    #!/bin/bash
-    # Install Docker
-    dnf update -y
-    dnf install -y docker
-    systemctl start docker
-    systemctl enable docker
+  #!/bin/bash
+  dnf update -y
+  dnf install -y docker
+  systemctl start docker
+  systemctl enable docker
 
-    # Pull and run the app container from GHCR
-    docker pull ghcr.io/preethz2567/memory-gallery:latest
-    docker run -d \
-      --name memory-gallery \
-      --restart unless-stopped \
-      -p 4000:4000 \
-      -e NODE_ENV=production \
-      -e ADMIN_PASSWORD=${var.admin_password} \
-      -e AWS_REGION=${var.aws_region} \
-      -e S3_BUCKET_NAME=${var.s3_bucket_name} \
-      -e DB_HOST=${aws_db_instance.postgres.address} \
-      -e DB_PORT=5432 \
-      -e DB_NAME=memorygallery \
-      -e DB_USER=postgres \
-      -e DB_PASSWORD=${var.db_password} \
-      ghcr.io/preethz2567/memory-gallery:latest
-  EOF
+  docker pull ghcr.io/preethz2567/memory-gallery:latest
+  docker run -d \
+    --name memory-gallery \
+    --restart unless-stopped \
+    -p 4000:4000 \
+    --log-driver=awslogs \
+    --log-opt awslogs-region=${var.aws_region} \
+    --log-opt awslogs-group=/memory-gallery/app \
+    --log-opt awslogs-create-group=true \
+    -e NODE_ENV=production \
+    -e PORT=4000 \
+    -e ADMIN_PASSWORD=${var.admin_password} \
+    -e AWS_REGION=${var.aws_region} \
+    -e S3_BUCKET_NAME=${var.s3_bucket_name} \
+    -e DB_HOST=${aws_db_instance.postgres.address} \
+    -e DB_PORT=5432 \
+    -e DB_NAME=memorygallery \
+    -e DB_USER=postgres \
+    -e DB_PASSWORD=${var.db_password} \
+    ghcr.io/preethz2567/memory-gallery:latest
+EOF
 
   tags = {
     Name = "memory-gallery-app"
