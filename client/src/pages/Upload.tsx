@@ -46,6 +46,7 @@ export function Upload() {
     <div className="upload-page">
       <div className="upload-card">
         <h2>Upload a Memory</h2>
+        <p className="cute-line-upload">share a little piece of your day with us</p>
         <form onSubmit={handleSubmit}>
           <div className="field-group">
             <label htmlFor="photo">Photo</label>

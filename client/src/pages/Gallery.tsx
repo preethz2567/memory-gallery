@@ -151,14 +151,14 @@ export function Gallery() {
       <div className="hero">
         <h1>Memory Gallery</h1>
         <p className="hero-sub">
-          Hi! This is a trial project of me going live 🚀 — these are a few
-          nice pictures from my life. React to the ones you like!
+          Welcome to our shared space! Drop anything you like, react to your favorite moments, and let's build a beautiful collection together.
         </p>
+        <p className="cute-line">this is a shared space so drop anything u like</p>
       </div>
 
       {photos && photos.length === 0 ? (
         <div className="empty-state">
-          <p>No memories yet. Upload the first one!</p>
+          <p>No memories yet... Be the first to drop something cute!</p>
         </div>
       ) : (
         <div className="photo-grid">
