@@ -1,4 +1,4 @@
--- Run this once to set up your database tables
+
 
 CREATE TABLE IF NOT EXISTS photos (
   id SERIAL PRIMARY KEY,

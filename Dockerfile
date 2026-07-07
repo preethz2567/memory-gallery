@@ -35,7 +35,7 @@ COPY server.js ./
 COPY --from=frontend-builder /app/client/dist ./client/dist
 
 # Document which port the app listens on
-EXPOSE 3000
+EXPOSE 4000
 
 # NODE_ENV=production tells Express to serve the React static files
 # and enables SSL for the DB connection
