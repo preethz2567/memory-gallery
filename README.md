@@ -5,17 +5,8 @@ A personal photo gallery with reactions - built to demonstrate a full DevOps lif
 
 ## Architecture
 
-Browser
-│
-▼
-EC2 t2.micro (Node/Express + React static files, Docker container)
-│                    │
-▼                    ▼
-S3 bucket           RDS PostgreSQL (db.t3.micro)
-(image files)       (photo metadata + reactions)
-│
-CloudWatch
-(container logs, metrics)
+<img width="572" height="297" alt="image" src="https://github.com/user-attachments/assets/860f692f-7204-427c-be78-45647101017a" />
+
 
 ## What it does
 - Upload personal photos with a memory caption (admin password protected)
