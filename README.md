@@ -1,5 +1,4 @@
 # Memory Gallery
-hi! check this outt http://15.207.55.185:4000/
 
 A personal photo gallery with reactions - built to demonstrate a full DevOps lifecycle: containerized Node.js + React app, CI/CD with GitHub Actions, infrastructure provisioned with Terraform on AWS.
 
