@@ -6,7 +6,8 @@
     "test": "jest --forceExit",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint src/**/*.js",
+    "build": "npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
