@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const photosRouter = require("./routes/photos");
 const reactionsRouter = require("./routes/reactions");
+const commentsRouter = require("./routes/comments");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(
 // API routes
 app.use("/api/photos", photosRouter);
 app.use("/api/reactions", reactionsRouter);
+app.use("/api/comments", commentsRouter);
 
 // In production, serve the React build as static files
 // The Dockerfile builds the React app first, output goes to client/dist

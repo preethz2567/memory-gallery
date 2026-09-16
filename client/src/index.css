@@ -442,3 +442,33 @@ body {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Comments & Cute Modal ── */
+.cute-modal {
+  text-align: center;
+}
+
+.cute-modal p {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.comments-section {
+  padding: 1rem 0.5rem;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.comment {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.comment strong {
+  color: #111;
+  font-weight: 600;
+}

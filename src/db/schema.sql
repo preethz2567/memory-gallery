@@ -15,3 +15,11 @@ CREATE TABLE IF NOT EXISTS reactions (
   reactor_name TEXT NOT NULL,
   reacted_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS comments (
+  id SERIAL PRIMARY KEY,
+  photo_id INTEGER NOT NULL REFERENCES photos(id) ON DELETE CASCADE,
+  commenter_name TEXT NOT NULL,
+  text TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);

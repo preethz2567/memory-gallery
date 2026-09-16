@@ -16,6 +16,14 @@ export interface Reaction {
   names: string[];
 }
 
+export interface Comment {
+  id: number;
+  photo_id: number;
+  commenter_name: string;
+  text: string;
+  created_at: string;
+}
+
 export interface PhotoDetail extends Photo {
   reactions: Reaction[];
 }
@@ -67,5 +75,24 @@ export async function addReaction(
 // Fetch reactions for a photo
 export async function fetchReactions(photoId: number): Promise<Reaction[]> {
   const { data } = await axios.get(`${BASE}/reactions/${photoId}`);
+  return data;
+}
+
+// Add a comment to a photo
+export async function addComment(
+  photoId: number,
+  commenterName: string,
+  text: string
+): Promise<void> {
+  await axios.post(`${BASE}/comments`, {
+    photo_id: photoId,
+    commenter_name: commenterName,
+    text,
+  });
+}
+
+// Fetch comments for a photo
+export async function fetchComments(photoId: number): Promise<Comment[]> {
+  const { data } = await axios.get(`${BASE}/comments/${photoId}`);
   return data;
 }
