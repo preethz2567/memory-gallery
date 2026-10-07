@@ -138,27 +138,52 @@ body {
 
 /* ── Cards ── */
 .photo-card {
+  position: relative;
   break-inside: avoid;
-  margin-bottom: 2rem;
-  background: rgba(255,255,255,0.92);
-  border: 1px solid rgba(255,255,255,0.6);
-  border-radius: 3px;
-  padding: 10px 10px 0;
+  margin-bottom: 2.5rem;
+  background: #fffdf7;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 2px;
+  padding: 16px 16px 0;
   /* Layered shadow for depth like a physical print */
   box-shadow:
     0 1px 2px rgba(0,0,0,0.15),
     0 8px 24px rgba(0,0,0,0.3),
-    0 0 0 4px rgba(255,255,255,0.92),
+    0 0 0 4px #fffdf7,
     0 0 0 5px rgba(255,255,255,0.3);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
+.photo-card::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 90px;
+  height: 28px;
+  background: rgba(255, 255, 220, 0.6);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  z-index: 10;
+  clip-path: polygon(3% 0, 97% 2%, 99% 98%, 1% 100%);
+  pointer-events: none;
+}
+
+.photo-card:nth-child(even)::before {
+  transform: translateX(-50%) rotate(3deg);
+  background: rgba(255, 255, 230, 0.55);
+}
+
+.photo-card:nth-child(3n)::before {
+  transform: translateX(-40%) rotate(-4deg);
+}
+
 .photo-card:hover {
-  transform: translateY(-5px) rotate(0.3deg);
+  transform: translateY(-5px) rotate(1deg);
   box-shadow:
     0 2px 4px rgba(0,0,0,0.2),
     0 16px 40px rgba(0,0,0,0.4),
-    0 0 0 4px rgba(255,255,255,0.92),
+    0 0 0 4px #fffdf7,
     0 0 0 5px rgba(255,255,255,0.2);
 }
 
